@@ -2,27 +2,17 @@
 import { Fragment, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
-import * as usFlag from "../image/us.png";
-import * as vnFlag from "../image/vn.png";
-const people = [
-  {
-    id: 1,
-    name: "USD",
-    avatar: usFlag.default,
-  },
-  {
-    id: 2,
-    name: "VND",
-    avatar: vnFlag.default,
-  },
-];
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function SelectMenu() {
-  const [selected, setSelected] = useState(people[0]);
+export default function SelectMenu(props) {
+  const { selected, setSelected, countries } = props; // es6 destructe
+  console.log(
+    "🚀 ~ file: SelectMenu.js ~ line 12 ~ SelectMenu ~ selected",
+    selected
+  );
 
   return (
     <div className="box-border h-40 w-60">
@@ -56,22 +46,22 @@ export default function SelectMenu() {
             leaveTo="opacity-0"
           >
             <Listbox.Options className="absolute z-10 mt-1 w-full bg-white shadow-lg max-h-56 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
-              {people.map((person) => (
+              {countries.map((country) => (
                 <Listbox.Option
-                  key={person.id}
+                  key={country.id}
                   className={({ active }) =>
                     classNames(
                       active ? "text-white bg-indigo-600" : "text-gray-900",
                       "cursor-default select-none relative py-2 pl-3 pr-9"
                     )
                   }
-                  value={person}
+                  value={country}
                 >
                   {({ selected, active }) => (
                     <>
                       <div className="flex items-center">
                         <img
-                          src={person.avatar}
+                          src={country.avatar}
                           alt=""
                           className="flex-shrink-0 h-6 w-6 rounded-full"
                         />
@@ -81,7 +71,7 @@ export default function SelectMenu() {
                             "ml-3 block truncate"
                           )}
                         >
-                          {person.name}
+                          {country.name}
                         </span>
                       </div>
 
